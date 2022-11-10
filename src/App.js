@@ -12,9 +12,9 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ]);  
-
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [filterParamenter, setFIlterParamater] = useState("");
 
   const addName = (event) => {
     event.preventDefault();
@@ -57,7 +57,6 @@ const App = () => {
     return isPresent;
   }
 
-
   const numberEntered = (event) => {
     setNewNumber(event.target.value);                             // capture the input as it is being typed 
   }
@@ -72,6 +71,12 @@ const App = () => {
     return isPresent;
   }
 
+//  Dynamic Filtering of Contacts
+const contactsToShow = persons.filter(person => person.name.includes(filterParamenter));
+const updateFilter = (event) => {
+  setFIlterParamater(event.target.value)
+}
+
 
   return(
     <div>
@@ -85,7 +90,8 @@ const App = () => {
       </form> 
 
       <Header text={"Contact"}/>
-      <DisplayContact persons={persons} />
+      <FormTextInput text={"Filter Contact on Name"} value={filterParamenter} onChange={updateFilter}/>
+      <DisplayContact persons={contactsToShow} />
     </div>
   )
 }
