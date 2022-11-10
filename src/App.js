@@ -2,7 +2,12 @@ import { useState } from "react";
 
 const App = () => {
 
-  const [persons, setPersons] = useState([{name: "John Doe", number : "9999999999"}]);  // array of Objects to store contacts
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },               // array of Objects to store contacts
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ]);  
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -25,7 +30,8 @@ const App = () => {
 
     const newContactObject = {                                  // object to hold form input
       name : newName,
-      number : newNumber                                 
+      number : newNumber,
+      id : persons.length+1                                 
     } 
     setPersons(persons.concat(newContactObject));               // concat returns a new array,
     setNewName("");                                             // to clear the input field on submitting
@@ -73,15 +79,12 @@ const App = () => {
           number : <input value={newNumber} onChange={numberEntered} required/>  
         </div>
         <div>
-          <button type="Submit" >Save Name</button>
-        </div>
-        <div>
-          debug : {newName}
+          <button type="Submit" >add</button>
         </div>
 
         <h2>Contacts :</h2>
         <ul>
-          {persons.map(person => <li key={person.name}>{person.name} : {person.number}</li>)}
+          {persons.map(person => <li key={person.id}>{person.name} : {person.number}</li>)}
         </ul>
       </form> 
     </div>
