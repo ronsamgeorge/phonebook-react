@@ -1,11 +1,9 @@
 const DisplayContact = ({persons}) => {
-
-    return(
+    return (
       <div>
         <ul>
             {persons.map(person => <li key={person.id}>{person.name} : {person.number}</li>)}   
-        </ul>
-        
+        </ul>       
       </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header"
 import DisplayContact from "./components/DisplayContact";
+import FormTextInput from "./components/FormTextInput";
 
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ]);  
+
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -31,7 +33,7 @@ const App = () => {
       return;
     }
 
-    const newContactObject = {                                  // object to hold form input
+    const newContactObject = {                                  // new temp object to hold form input
       name : newName,
       number : newNumber,
       id : persons.length+1                                 
@@ -75,19 +77,15 @@ const App = () => {
     <div>
       <Header text={"Phonebook"} />
       <form onSubmit={addName}>
-        <div>
-          name : <input value={newName} onChange={nameEntered} required/>  
-        </div>
-        <div>
-          number : <input value={newNumber} onChange={numberEntered} required/>  
-        </div>
+        <FormTextInput text={"name"} value={newName} onChange={nameEntered} />
+        <FormTextInput text={"number"} value={newNumber} onChange={numberEntered} />
         <div>
           <button type="Submit" >add</button>
         </div>
-
-       <Header text={"Contact"}/>
-       <DisplayContact persons={persons} />
       </form> 
+
+      <Header text={"Contact"}/>
+      <DisplayContact persons={persons} />
     </div>
   )
 }
