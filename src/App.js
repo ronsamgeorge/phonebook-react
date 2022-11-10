@@ -1,4 +1,9 @@
 import { useState } from "react";
+import Header from "./components/Header"
+
+const DisplayContact = (props) => {
+  
+}
 
 const App = () => {
 
@@ -70,7 +75,7 @@ const App = () => {
 
   return(
     <div>
-      <h2>Phonebook</h2>
+      <Header text={"Phonebook"} />
       <form onSubmit={addName}>
         <div>
           name : <input value={newName} onChange={nameEntered} required/>  
@@ -82,7 +87,7 @@ const App = () => {
           <button type="Submit" >add</button>
         </div>
 
-        <h2>Contacts :</h2>
+       <Header text={"Contact"}/>
         <ul>
           {persons.map(person => <li key={person.id}>{person.name} : {person.number}</li>)}
         </ul>
