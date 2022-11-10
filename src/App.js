@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header"
+import DisplayContact from "./components/DisplayContact";
 
-const DisplayContact = (props) => {
-  
-}
 
 const App = () => {
 
@@ -88,9 +86,7 @@ const App = () => {
         </div>
 
        <Header text={"Contact"}/>
-        <ul>
-          {persons.map(person => <li key={person.id}>{person.name} : {person.number}</li>)}
-        </ul>
+       <DisplayContact persons={persons} />
       </form> 
     </div>
   )
