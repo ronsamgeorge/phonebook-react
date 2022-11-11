@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "./components/Header"
 import DisplayContact from "./components/DisplayContact";
 import FormTextInput from "./components/FormTextInput";
@@ -6,15 +7,21 @@ import FormTextInput from "./components/FormTextInput";
 
 const App = () => {
 
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },               // array of Objects to store contacts
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]);  
+  const [persons, setPersons] = useState([]);  
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterParamenter, setFIlterParamater] = useState("");
+
+
+  // use EFfect hooks to retrieve data from local json db at port 3001  
+  useEffect(() => {
+    axios
+    .get("http://localhost:3001/persons")
+    .then(response => {
+      console.log(response.data)
+      setPersons(response.data)
+    })
+  },[])
 
   const addName = (event) => {
     event.preventDefault();
@@ -73,7 +80,7 @@ const App = () => {
 
 //  Dynamic Filtering of Contacts
 const contactsToShow = persons.filter(person => person.name.includes(filterParamenter));
-const updateFilter = (event) => {
+const updateFilterParameter = (event) => {
   setFIlterParamater(event.target.value)
 }
 
@@ -90,7 +97,7 @@ const updateFilter = (event) => {
       </form> 
 
       <Header text={"Contact"}/>
-      <FormTextInput text={"Filter Contact on Name"} value={filterParamenter} onChange={updateFilter}/>
+      <FormTextInput text={"Filter Contact on Name"} value={filterParamenter} onChange={updateFilterParameter}/>
       <DisplayContact persons={contactsToShow} />
     </div>
   )
