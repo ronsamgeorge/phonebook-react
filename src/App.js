@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "axios"
+import serverService from "./services/contacts"
 import Header from "./components/Header"
 import DisplayContact from "./components/DisplayContact";
 import FormTextInput from "./components/FormTextInput";
@@ -13,15 +14,17 @@ const App = () => {
   const [filterParamenter, setFIlterParamater] = useState("");
 
 
-  // use EFfect hooks to retrieve data from local json db at port 3001  
+  // use EFfect hooks to retrieve the initial saved contacts from DB
   useEffect(() => {
-    axios
-    .get("http://localhost:3001/persons")
-    .then(response => {
-      console.log(response.data)
-      setPersons(response.data)
+    serverService
+    .getAll()
+    .then(initialContacts => {
+      console.log(initialContacts)
+      setPersons(initialContacts)
     })
   },[])
+
+
 
   const addName = (event) => {
     event.preventDefault();
@@ -46,10 +49,10 @@ const App = () => {
       // id : persons.length+1                                 
     } 
 
-    axios
-      .post('http://localhost:3001/persons', newContactObject)
-      .then(response => {
-        setPersons(persons.concat(response.data));               // concat returns a new array,
+    serverService
+      .addContact(newContactObject)
+      .then(newContact => {
+        setPersons(persons.concat(newContact));                  // concat returns a new array,
         setNewName("");                                             // to clear the input field on submitting
         setNewNumber("");
       })
