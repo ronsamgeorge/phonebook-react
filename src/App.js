@@ -4,6 +4,7 @@ import serverService from "./services/contacts"
 import Header from "./components/Header"
 import DisplayContact from "./components/DisplayContact";
 import FormTextInput from "./components/FormTextInput";
+import { type } from "@testing-library/user-event/dist/type";
 
 
 const App = () => {
@@ -86,6 +87,18 @@ const App = () => {
     return isPresent;
   }
 
+const deleteContact = (event) => {
+  const deleteId = event.target.value;
+
+  serverService
+    .deleteContact(deleteId)
+    .then(response => {
+      const newContacts = persons.filter(person => person.id.toString() !== deleteId); // persons.id is number while id is string  
+      console.log(newContacts)
+      setPersons(newContacts);
+    })
+}
+
 //  Dynamic Filtering of Contacts
 const contactsToShow = persons.filter(person => person.name.includes(filterParamenter));
 const updateFilterParameter = (event) => {
@@ -106,7 +119,7 @@ const updateFilterParameter = (event) => {
 
       <Header text={"Contact"}/>
       <FormTextInput text={"Filter Contact on Name"} value={filterParamenter} onChange={updateFilterParameter}/>
-      <DisplayContact persons={contactsToShow} />
+      <DisplayContact persons={contactsToShow} onClick={deleteContact}/>
     </div>
   )
 }
