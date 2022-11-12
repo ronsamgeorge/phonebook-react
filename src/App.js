@@ -43,11 +43,16 @@ const App = () => {
     const newContactObject = {                                  // new temp object to hold form input
       name : newName,
       number : newNumber,
-      id : persons.length+1                                 
+      // id : persons.length+1                                 
     } 
-    setPersons(persons.concat(newContactObject));               // concat returns a new array,
-    setNewName("");                                             // to clear the input field on submitting
-    setNewNumber("");
+
+    axios
+      .post('http://localhost:3001/persons', newContactObject)
+      .then(response => {
+        setPersons(persons.concat(response.data));               // concat returns a new array,
+        setNewName("");                                             // to clear the input field on submitting
+        setNewNumber("");
+      })
   }
 
   const nameEntered = (event) => {
