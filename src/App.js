@@ -7,6 +7,7 @@ import FormTextInput from "./components/FormTextInput";
 import { type } from "@testing-library/user-event/dist/type";
 
 
+
 const Notificaton = ({message}) => {
 
   if (message === ""){
@@ -14,7 +15,7 @@ const Notificaton = ({message}) => {
   }
 
   return(
-    <div className="error">
+    <div className="message">
       {message}
     </div>
   )
