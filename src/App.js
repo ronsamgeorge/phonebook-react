@@ -7,12 +7,27 @@ import FormTextInput from "./components/FormTextInput";
 import { type } from "@testing-library/user-event/dist/type";
 
 
+const Notificaton = ({message}) => {
+
+  if (message === ""){
+    return null
+  }
+
+  return(
+    <div className="error">
+      {message}
+    </div>
+  )
+
+}
+
 const App = () => {
 
   const [persons, setPersons] = useState([]);  
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterParamenter, setFIlterParamater] = useState("");
+  const [message, setMessage] = useState("");
 
 
   // use EFfect hooks to retrieve the initial saved contacts from DB
@@ -56,6 +71,8 @@ const App = () => {
         setPersons(persons.concat(newContact));                  // concat returns a new array,
         setNewName("");                                             // to clear the input field on submitting
         setNewNumber("");
+        setMessage("Person added")
+        setTimeout(() => setMessage(""), 5000);  
       })
   }
 
@@ -110,6 +127,7 @@ const updateFilterParameter = (event) => {
     <div>
       <Header text={"Phonebook"} />
       <form onSubmit={addName}>
+        <Notificaton message={message} />
         <FormTextInput text={"name"} value={newName} onChange={nameEntered} />
         <FormTextInput text={"number"} value={newNumber} onChange={numberEntered} />
         <div>
