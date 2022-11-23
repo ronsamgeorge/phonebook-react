@@ -69,7 +69,7 @@ const App = () => {
     serverService
       .addContact(newContactObject)
       .then(newContact => {
-        setPersons(persons.concat(newContact));                  // concat returns a new array,
+        setPersons(persons.concat(newContact));                     // concat returns a new array,
         setNewName("");                                             // to clear the input field on submitting
         setNewNumber("");
         setMessage("Person added")
