@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
+//import axios from "axios"
 import serverService from "./services/contacts"
 import Header from "./components/Header"
 import DisplayContact from "./components/DisplayContact";
 import FormTextInput from "./components/FormTextInput";
-import { type } from "@testing-library/user-event/dist/type";
+//import { type } from "@testing-library/user-event/dist/type";
 
 
 
@@ -74,6 +74,10 @@ const App = () => {
         setNewNumber("");
         setMessage("Person added")
         setTimeout(() => setMessage(""), 5000);  
+      })
+      .catch(err => {
+        setMessage(err.response.data.error);
+        setTimeout(() => setMessage(""),5000);
       })
   }
 
